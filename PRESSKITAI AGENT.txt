@@ -1,0 +1,203 @@
+import { useState } from 'react'
+import { Button } from "/components/ui/button"
+import { Input } from "/components/ui/input"
+import { Label } from "/components/ui/label"
+import { Textarea } from "/components/ui/textarea"
+import { Card, CardContent, CardHeader, CardTitle } from "/components/ui/card"
+import { Download } from "lucide-react"
+
+const PressKitGenerator = () => {
+  const [companyName, setCompanyName] = useState('')
+  const [productService, setProductService] = useState('')
+  const [majorAchievements, setMajorAchievements] = useState('')
+  const [brandAttributes, setBrandAttributes] = useState('')
+  const [targetMedia, setTargetMedia] = useState('')
+  const [pressReleaseTopic, setPressReleaseTopic] = useState('')
+  const [preferredTone, setPreferredTone] = useState('')
+  const [supplementaryData, setSupplementaryData] = useState('')
+  const [pressReleaseHeadline, setPressReleaseHeadline] = useState('')
+  const [ceoQuote, setCeoQuote] = useState('')
+
+  const generateEmailDraft = () => {
+    return `${companyName} is thrilled to introduce its latest **AI-driven analytics solution**—a tool designed to transform enterprise decision-making with **real-time insights and predictive intelligence**.`
+  }
+
+  const generatePressKit = () => {
+    const emailDraft = generateEmailDraft()
+
+    const pressKit = `
+# ?? ${companyName} Press Kit
+
+## ?? Press Release
+### **${pressReleaseHeadline}**
+${companyName} announces the launch of its cutting-edge **${productService}**, designed to enhance enterprise decision-making through **real-time insights** and **predictive intelligence**.
+
+#### **Key Highlights**
+- ?? ${brandAttributes} **business intelligence** solution
+- ? **Real-time analytics** for data-driven decisions
+- ?? Sustainable & **scalable AI models** for enterprises
+
+#### **CEO Quote**
+*"${ceoQuote}"* — [${companyName} Executive]
+
+?? **Learn more:** [${companyName} AI Analytics](https://www.${companyName.toLowerCase()}.com)  
+?? **Press Contact:** press@${companyName.toLowerCase()}.com  
+
+---
+
+## ?? Company Overview
+**Founded:** 2003  
+**Mission:** Accelerate the world's transition to sustainable AI and energy solutions.  
+**Key Achievements:**  
+${majorAchievements.split(', ').map((achievement, index) => `? ${achievement}`).join('\n')}
+
+---
+
+## ?? Media Outreach Email (Draft)
+**Subject:** ${companyName} Launches ${productService} for Smarter Business Intelligence  
+
+**Dear [Journalist’s Name],**  
+
+${emailDraft}  
+
+We would love to provide an exclusive **interview or product demo**. Let us know if you’re interested!  
+
+**Best,**  
+${companyName} PR Team  
+press@${companyName.toLowerCase()}.com  
+
+---
+
+## ?? Additional Media & Recommendations
+- **Suggested Images:** ${supplementaryData.split(', ').map((data, index) => `${data}`).join(', ')}
+- **Hashtags:** #${companyName.replace(/\s+/g, '')}AI #AIInnovation #EnterpriseTech  
+`
+
+    return pressKit
+  }
+
+  const downloadPressKit = () => {
+    const pressKit = generatePressKit()
+    const blob = new Blob([pressKit], { type: 'text/markdown' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${companyName}-press-kit.md`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-4">
+      <Card className="w-full max-w-4xl">
+        <CardHeader>
+          <CardTitle>Press Kit Generator</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="companyName">Company Name</Label>
+              <Input
+                id="companyName"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="productService">Product/Service</Label>
+              <Input
+                id="productService"
+                value={productService}
+                onChange={(e) => setProductService(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="majorAchievements">Major Achievements</Label>
+              <Textarea
+                id="majorAchievements"
+                value={majorAchievements}
+                onChange={(e) => setMajorAchievements(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="brandAttributes">Brand Attributes</Label>
+              <Input
+                id="brandAttributes"
+                value={brandAttributes}
+                onChange={(e) => setBrandAttributes(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="targetMedia">Target Media</Label>
+              <Textarea
+                id="targetMedia"
+                value={targetMedia}
+                onChange={(e) => setTargetMedia(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="pressReleaseTopic">Press Release Topic</Label>
+              <Input
+                id="pressReleaseTopic"
+                value={pressReleaseTopic}
+                onChange={(e) => setPressReleaseTopic(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="preferredTone">Preferred Tone</Label>
+              <Input
+                id="preferredTone"
+                value={preferredTone}
+                onChange={(e) => setPreferredTone(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="supplementaryData">Supplementary Data</Label>
+              <Textarea
+                id="supplementaryData"
+                value={supplementaryData}
+                onChange={(e) => setSupplementaryData(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="pressReleaseHeadline">Press Release Headline</Label>
+              <Input
+                id="pressReleaseHeadline"
+                value={pressReleaseHeadline}
+                onChange={(e) => setPressReleaseHeadline(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="ceoQuote">CEO Quote</Label>
+              <Textarea
+                id="ceoQuote"
+                value={ceoQuote}
+                onChange={(e) => setCeoQuote(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button onClick={downloadPressKit} variant="default">
+              <Download className="mr-2 h-4 w-4" /> Download Press Kit
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+export default PressKitGenerator
+
