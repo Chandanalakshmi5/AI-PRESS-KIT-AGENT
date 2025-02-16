@@ -38,15 +38,11 @@ Prerequisites: Python 3.8+, OpenAI API Key (for GPT-based generation), Flask (or
 📌 Usage
 Run the AI Press Kit Agent locally:
 
-bash
-Copy
-Edit
+
 python app.py  # or uvicorn app:app --reload
 Send a request to generate a press kit:
 
-bash
-Copy
-Edit
+
 curl -X POST "http://localhost:5000/generate" -H "Content-Type: application/json" -d '{
   "company_name": "Tesla",
   "product": "AI-Powered Data Analytics",
@@ -61,9 +57,7 @@ The response will contain a structured press kit with sections for press release
 ⚙ Configuration
 Set up your .env file with API keys and settings:
 
-plaintext
-Copy
-Edit
+
 OPENAI_API_KEY=your_openai_api_key
 MODEL_VERSION=gpt-4
 PORT=5000
