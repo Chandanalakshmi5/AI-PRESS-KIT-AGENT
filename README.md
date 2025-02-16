@@ -1,4 +1,6 @@
 # AI-PRESS-KIT-AGENT
+![image](https://github.com/user-attachments/assets/092ec9ad-3d3a-4aba-9076-699ee9a0e919)
+
 📌 Table of Contents
 Overview
 Features
